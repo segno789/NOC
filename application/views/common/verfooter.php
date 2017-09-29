@@ -320,7 +320,7 @@
             return true;
         }
     }
-        
+
     function check_downloand()
     {
         var appno = $("#appNo").val(); 
@@ -345,6 +345,8 @@
             alertify.log("Please Wait for a while...")   
             return true;
         }
+        
+           
     }
     function check_downloand_NOC()
     {
