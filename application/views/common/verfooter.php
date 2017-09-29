@@ -320,11 +320,11 @@
             return true;
         }
     }
-
+        
     function check_downloand()
     {
         var appno = $("#appNo").val(); 
-        var appno_alternate = $("#lblAppNo").text(); 
+        var appno_alternate = $("#lblAppNo").val(); 
         if(appno == "")
         {
             appno = appno_alternate; 
