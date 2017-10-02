@@ -146,9 +146,9 @@
         <div class="main_bg_container">
             <div id="header">
                 <div class="inHeaderLogin">
-                    <a href="" title="BISE Gujranwala" rel="home"><img style="margin-top: 9px;text-align:left;width:150px;float: left;margin-left: 14px;" src="http://www.bisegrw.com/bisegrw/assets/img/icon.png" alt="Logo BISE GRW"></a>
+                    <a href="" title="BISE Gujranwala" rel="home"><img style="margin-top: 9px;text-align:left;width:150px;float: left;margin-left: 14px;" src="<?=base_url()?>assets/img/icon.png" alt="Logo BISE GRW"></a>
                     <!--Intimation-->
-                    <p style="color: wheat;text-align: center;font-size: 23px;margin-left: 28px;float: left;  margin-top:35px;">Board of Intermediate & Secondary Education, Gujranwala </br></br> Download Roll Number Slip For S.S.C Annual 2016</p>
+                    <p style="color: wheat;text-align: center;font-size: 23px;margin-left: 28px;float: left;  margin-top:35px;">Board of Intermediate & Secondary Education, Gujranwala </br></br> <?= PVT_TITLE?></p>
                 </div>
             </div> 
             <div id="wraper2">
@@ -278,8 +278,12 @@
                             </form>
 
                         </div>
-
-                       <img src="<?php echo base_url(); ?>assets/img/Note00.jpg" alt="" style="    width: 700px;margin-top:15px;" />
+                        <hr />
+                         <img src="<?php echo base_url(); ?>assets/img/backside.jpg" alt="" style=" width: 560px;    margin-top: 15px;     margin-left: 150px;" />
+                        <a href="<?php echo base_url(); ?>assets/img/slip_back_page_PVTmatric.pdf" target="_blank" style="text-align: center;display: block;"><button type="button" class="jbtn jmedium jblack" id="downbtn">Download Roll No Slip Back Instructions.</button></a>
+                       
+                      <hr />
+                       <img src="<?php echo base_url(); ?>assets/img/NoteForMatric_II.jpg" alt="" style="    width: 700px;margin-top:15px;height: 110px;" />
 
                     </div>
                 </fieldset>

@@ -47,8 +47,18 @@ define('MCLASS', '12');
 define('VERIFICATION_TITLE', 'Online NOC System');
 define('NOC_APP_NO', '400000');
 define('NOC_APP_NO1', '100000');
-define('DIRPATH','F:\xampp\htdocs\Share Images\OldPics'); 
+//define('DIRPATH','F:\xampp\htdocs\Share Images\OldPics'); 
 
+//================ RollNumber Slips variables ========================
+define('mClass','10'); 
+define('mClass1','12'); 
+define('mSession','2'); 
+define('mSession1','1'); 
+define('mClass2','9'); 
+define('mYear','2017'); 
+define('PVT_TITLE','Download Roll Number Slip For S.S.C Supplementary 2017'); 
+define('PVT_TITLE_INTER','Download Roll Number Slip For H.S.S.C Supply 2016'); 
+define('DIRPATH','C:\inetpub\vhosts\bisegrw.com\Share Images\OldPics\\'); 
 
 
 
