@@ -1,13 +1,23 @@
 
 <?php
-@$info = $info[0][0];
+@$info = $info[0];
+if(@$err['Error'])
+{
+    ?>
+    <div class="alert alert-danger fade in alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+        <strong><?php echo $err['Error'] ?></strong>
+    </div>
+    <?php
+}
 ?>
-<form enctype="multipart/form-data" method="post" action="<?php echo base_url(); ?>NOC/statusPage_server" >
+
+<form enctype="multipart/form-data" method="post" action="<?php echo base_url(); ?>Traceapplication/TraceFile">
 
     <div class="form-group">    
         <div class="row">
             <div class="col-md-12">
-                <h3 align="center" class="bold">1- Check Status Section</h3>
+                <h3 align="center" class="bold">TRACE YOUR APPLICATION</h3>
             </div>
         </div>
     </div>
@@ -24,11 +34,12 @@
     </div>
 
 
+
     <div class="form-group">    
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
                 <label class="control-label" for="tsscrno" >Application No</label>
-                <input type="text" id="appNo" maxlength="8" name="appNo" class="form-control" >
+                <input type="text" id="fileId" maxlength="10" value="<?php echo @$info['File_NO'] ?>" name="fileId" class="form-control" >
             </div>
         </div>
     </div>
@@ -36,54 +47,39 @@
     <div class="form-group">    
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
-                <input type="submit" value="Check Status" id="btnchk" name="btnchk" onclick="return check_downloand();" class="btn btn-primary btn-block">
+                <input type="submit" value="Check Status" id="btnchk" name="btnchk" class="btn btn-primary btn-block">
             </div>
         </div>
     </div>
-     <div class="form-group">    
-        <div class="row">
-            <div class="col-md-offset-3 col-md-6">
-                <input type="button" value="Cancel" id="gotoNocApp" name="gotoNocApp" onclick="window.location.href = '<?=base_url()?>'" class="btn btn-danger btn-block">
-            </div>
-        </div>
+    <!--<div class="form-group">    
+    <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+    <input type="button" value="Cancel" onclick="window.location.href = '<?=base_url()?>'" class="btn btn-danger btn-block">
     </div>
-       
+    </div>
+    </div>-->
+
     <?php 
+
+    //DebugBreak();
+
     $colorClass = "";
     $Msg = "";
 
-    if($info['IsActive']==0)
+    if($info['Final_Status'] == "IN PROCESS")
     {
         $colorClass ="class='alert alert-danger fade in alert-dismissable'";
-        $Msg = "Application DELETED.";
+        $Msg = "Final Status : IN PROCESS";
     }
-    else if($info['ismigrated']==1)
+    else if($info['Final_Status']== "COMPLETED.")
     {
         $colorClass ="class='alert alert-success fade in alert-dismissable'";
-        $Msg = "Application Completed";
-    }
-    else if($info['ismigrated']==0 && $info['isverified']==0 )
-    {
-        $colorClass ="class='alert alert-warning fade in alert-dismissable'";
-        $Msg = "Application Under Process (Fee not verified!)";
-    }
-    else if($info['ismigrated']==0 && $info['isverified']==1 )
-    {
-        $colorClass ="class='alert alert-info fade in alert-dismissable'";
-        $Msg = "Application Under Process (Fee verified!)";
-    }
-    else if($info['ismigrated']==0 && $info['isverified']==1 && $info['remarks']!="")
-    {
-        $colorClass ="class='alert alert-danger fade in alert-dismissable'";
-        $Msg = "Application can not proceed due to ".$info['remarks'];
+        $Msg = "Final Status: APPLICATION COMPLETED";
     }
 
-    if(isset($info['app_No']))
+    if(isset($info['Final_Status']))
     {
         ?>
-
-        
-
         <div class="form-group">    
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
@@ -97,23 +93,67 @@
             </div>
         </div>
 
+        <div class="form-group">    
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="alert alert-info fade in alert-dismissable" >
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close"></a>
+                        <strong>
+                            Current Status:  <?php echo $info['Current_Status']; ?>
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <fieldset>
-            <div class="form-group">
-                <div class="col-md-offset-3 col-md-6">
-                    <label  class="control-label">Application ID:</label>
-                    <input type="text" class="form-control" id='lblAppNo' value="<?php echo $info['app_No'];  ?>" readonly="readonly">    
-                </div>
-            </div>
 
             <div class="form-group">
                 <div class="col-md-offset-3 col-md-6">
-                    <label class="control-label">Name:</label>
-                    <input type="text" class="form-control" value="<?php echo $info['name'];  ?>" readonly="readonly">    
+                    <label  class="control-label">Applicant Name</label>
+                    <input type="text" class="form-control" value="<?php echo $info['SubmittedBy'];  ?>" readonly="readonly">    
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-3">
+                    <label  class="control-label">File ID</label>
+                    <input type="text" class="form-control" value="<?php echo $info['File_NO'];  ?>" readonly="readonly">    
                 </div>
 
+                <div class="col-md-3">
+                    <label class="control-label">File Name</label>
+                    <input type="text" class="form-control" value="<?php echo $info['FileName'];  ?>" readonly="readonly">    
+                </div>
             </div>
-      
-         
+
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-3">
+                    <label  class="control-label">Received By</label>
+                    <input type="text" class="form-control" value="<?php echo $info['ReceivedBy'];  ?>" readonly="readonly">    
+                </div>
+
+                <div class="col-md-3">
+                    <label class="control-label">Received Date</label>
+                    <input type="text" class="form-control" value="<?php echo date($info['recivedDate']);  ?>" readonly="readonly">    
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-3">
+                    <label  class="control-label">Current Branch Name</label>
+                    <input type="text" class="form-control" value="<?php echo $info['br_Name'];  ?>" readonly="readonly">    
+                </div>
+
+                <div class="col-md-3">
+                    <label class="control-label">Remarks</label>
+                    <input type="text" class="form-control" value="<?php echo $info['Remarks'];  ?>" readonly="readonly">    
+                </div>
+            </div>
+
         </fieldset> 
 
         <?php
