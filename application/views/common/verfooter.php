@@ -94,7 +94,7 @@
 
         jQuery.ajax({                    
             type: "POST",
-            url: "<?php echo base_url(); ?>" + "index.php/Verification/VerifyRollNo",
+            url: "<?php echo base_url(); ?>" + "Verification/VerifyRollNo",
             dataType: 'json',
             data: {vClass: vClass, RollNO: RollNO, vYear: vYear, sess: sess},                            
             success: function(json) {
@@ -394,7 +394,7 @@
         else
         {
             alertify.log("Please Wait for a while...")   
-            window.location.href = '<?=base_url()?>index.php/NOC/Download_NOC/'+appno;
+            window.location.href = '<?=base_url()?>NOC/Download_NOC/'+appno;
         }
     })
 
@@ -417,7 +417,7 @@
         jQuery.ajax({ 
 
             type: "POST",
-            url: "<?php echo base_url(); ?>" + "index.php/NOC/get_ssc_data",
+            url: "<?php echo base_url(); ?>" + "NOC/get_ssc_data",
             dataType: 'json',
             data: {rno: rno, year: year, sess: sess, brd:migto, dob:dob,class:matclass,Mobno:MobNo},                            
             success: function(json) {
@@ -452,13 +452,13 @@
                                     $('.mPageloader').show();
                                     jQuery.ajax({                    
                                         type: "POST",
-                                        url: "<?php echo base_url(); ?>" + "index.php/NOC/Insert_ssc_data",
+                                        url: "<?php echo base_url(); ?>" + "NOC/Insert_ssc_data",
                                         dataType: 'json',
                                         data: {rno: rno, year: year, sess: sess, migto: migto,dob:dob,Mobno:MobNo},                            
                                         success: function(json) {
                                             $('.mPageloader').hide();
                                             $( "#dialog-confirm" ).html('<div style="color:Green; font-weight:bold; font-size:16px;">Your Application is submitted Successfully</div>'); 
-                                            window.location.href = '<?php echo base_url(); ?>index.php/NOC/downloadPage/'+json[0][0]['app_No']+'/';
+                                            window.location.href = '<?php echo base_url(); ?>NOC/downloadPage/'+json[0][0]['app_No']+'/';
                                             $(".ui-button-text").css("display", "none");
                                         },
                                         error: function(request, status, error){
@@ -510,7 +510,7 @@
         jQuery.ajax({ 
 
             type: "POST",
-            url: "<?php echo base_url(); ?>" + "index.php/NOC/get_hssc_data",
+            url: "<?php echo base_url(); ?>" + "NOC/get_hssc_data",
             dataType: 'json',
             data: {rno: rno, year: year, sess: sess, brd:migto, matrno:matric_rno, int_class:intclass},                            
             success: function(json) {
@@ -574,13 +574,13 @@
                                     $('.mPageloader').show();
                                     jQuery.ajax({                    
                                         type: "POST",
-                                        url: "<?php echo base_url(); ?>" + "index.php/NOC/Insert_hssc_data",
+                                        url: "<?php echo base_url(); ?>" + "NOC/Insert_hssc_data",
                                         dataType: 'json',
                                         data: {rno: rno, year: year, sess: sess, migto: migto,matrno:matric_rno,intclass:intclass},                            
                                         success: function(json) {
                                             $('.mPageloader').hide();
                                             $( "#dialog-confirm" ).html('<div style="color:Green; font-weight:bold; font-size:16px;">Your Application is submitted Successfully</div>'); 
-                                            window.location.href = '<?php echo base_url(); ?>index.php/NOC/downloadPage/'+json[0][0]['app_No']+'/';
+                                            window.location.href = '<?php echo base_url(); ?>NOC/downloadPage/'+json[0][0]['app_No']+'/';
                                             $(".ui-button-text").css("display", "none");
                                         },
                                         error: function(request, status, error){

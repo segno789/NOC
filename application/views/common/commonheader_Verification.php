@@ -158,12 +158,7 @@
         Board of Intermediate & Secondary Education, Gujranwala
         <br>
         <?php 
-        $sess = '';
-        if(SESS == '1')
-            $sess =  'Annual';
-        else if(SESS == '2')
-            $sess = 'Supply';
-            echo'<p class="text-uppercase"  style="text-align:center;">Online No Objection Certificate </p>';
+        echo'<p class="text-uppercase"  style="text-align:center;">'.HEADER_TITLE.' </p>';
         ?>
     </h2>
 </div>

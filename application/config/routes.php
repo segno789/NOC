@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "NOC";
+$route['default_controller'] = "dashboard";
 //$route['default_controller'] = "Admission";
 $route['404_override'] = '';
 

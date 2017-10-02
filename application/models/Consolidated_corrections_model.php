@@ -53,8 +53,6 @@ class Consolidated_corrections_model extends CI_Model
               $picpath = $data['picpath'];
               $inst_cd = "";
               $sex = "";
-              $matRegNo = "";
-              $interRegNo = "";
               
             //  DebugBreak();
               if($corrFor == 2)
@@ -75,7 +73,6 @@ class Consolidated_corrections_model extends CI_Model
             $father_name = strtoupper($info[0]['Fname']);
             $regPvt =  @$info[0]['regPvt'];
             $dist_cd = @$info[0]['dist_cd'];
-            $interRegNo = @$info[0]['strRegNo'];
            
 
         }
@@ -103,7 +100,6 @@ class Consolidated_corrections_model extends CI_Model
                 $father_name = strtoupper(@$checkPreResult[0]['Fname']);
                 $regPvt =  @$checkPreResult[0]['regPvt'];
                 $dist_cd = @$checkPreResult[0]['dist_cd'];
-                $matRegNo = @$checkPreResult[0]['strRegNo'];
             }
             
               }
@@ -189,7 +185,7 @@ class Consolidated_corrections_model extends CI_Model
         }
         
       // debugbreak();
-        $query_2 = $this->db->query("Registration..Insert_corr $hid_sscrno,$hid_sscsess,$hid_sscyear,$hid_hsscrno,$hid_hsscyear,$hid_hsscsess,$ddlpurpose,$corrFor,'$cand_name','$corr_cand_name','$father_name','$corr_father_name','$dob','$corr_dob','$BForm','$FNIC','$MobNo','$candReason','$Email','$Addr',$inst_cd,$sex,'$picpath',$regPvt,$dist_cd,'$matRegNo','$interRegNo'");
+        $query_2 = $this->db->query("Registration..Insert_corr $hid_sscrno,$hid_sscsess,$hid_sscyear,$hid_hsscrno,$hid_hsscyear,$hid_hsscsess,$ddlpurpose,$corrFor,'$cand_name','$corr_cand_name','$father_name','$corr_father_name','$dob','$corr_dob','$BForm','$FNIC','$MobNo','$candReason','$Email','$Addr',$inst_cd,$sex,'$picpath',$regPvt,$dist_cd");
         $rowcount = $query_2->num_rows();
         if($rowcount > 0)
         {

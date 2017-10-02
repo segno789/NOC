@@ -2,7 +2,7 @@
 <?php
 @$info = $info[0][0];
 ?>
-<form enctype="multipart/form-data" method="post" action="<?php echo base_url(); ?>index.php/NOC/statusPage_server" >
+<form enctype="multipart/form-data" method="post" action="<?php echo base_url(); ?>NOC/statusPage_server" >
 
     <div class="form-group">    
         <div class="row">
@@ -187,14 +187,14 @@
                         {
                             ?>
                             <input type="button" value="Download NOC" id="DownloadNOC" name="DownloadNOC" onclick="return check_downloand();" class="btn btn-primary btn-block">
-                            <input type="button" value="APPLY FOR NOC" id="gotoNocApp" name="gotoNocApp" onclick="window.location.href = '<?=base_url();?>/index.php/NOC/'" class="btn btn-danger btn-block">
+                            <input type="button" value="Cancel" id="gotoNocApp" name="gotoNocApp" onclick="window.location.href = '<?=base_url();?>NOC/'" class="btn btn-danger btn-block">
                             <?php
                         }
                         else if($info['ismigrated']==0 && $info['isverified']==0 && $info['IsActive']==1)
                         {
                             ?>
                             <input type="submit" value="Download Challan Form" id="btnDownloadForm" name="btnDownloadForm" onclick="return check_downloand();" class="btn btn-primary btn-block">
-                            <input type="button" value="APPLY FOR NOC" id="gotoNocApp" name="gotoNocApp" onclick="window.location.href = '<?=base_url();?>/index.php/NOC/'" class="btn btn-danger btn-block">
+                            <input type="button" value="Cancel" id="gotoNocApp" name="gotoNocApp" onclick="window.location.href = '<?=base_url();?>NOC/'" class="btn btn-danger btn-block">
                             <?php
                         } 
                         ?> 

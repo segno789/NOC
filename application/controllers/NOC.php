@@ -7,6 +7,7 @@ class NOC extends CI_Controller {
     {
         parent::__construct();
         $this->load->helper('url');
+         define('HEADER_TITLE', 'ONLINE NO OBJECTION CERTIFICATE');
     }
     public function index()
     {
@@ -37,20 +38,30 @@ class NOC extends CI_Controller {
 
         $info = $info[0][0];
         $Session= 'ANNUAL';  
-        $fontSize = 10; 
-        $marge    = .95;   
-        $bx        = 90.6; 
-        $by        = 77.75;
-        $height   = 5.7;   
-        $width    = .26;  
-        $angle    = 0;   
+        //$info['iyear'] = 2016;     
 
-        $code     = '222020';
+       // DebugBreak();
+        //$path = $this->Verification_model->generatepath($info['Rno'],$info['class'],$info['iyear'],$info['sess']);
+       // $path = explode('Pictures$',$path[0]['picpath']);
+       // $filepath = DIRPATH.$path[1];
+
+
+        //$filepath = base_url().'assets/img/download.jpg';
+        $fontSize = 10; 
+        $marge    = .95;   // between barcode and hri in pixel
+        $bx        = 90.6;  // barcode center
+        $by        = 77.75;  // barcode center
+        $height   = 5.7;   // barcode height in 1D ; module size in 2D
+        $width    = .26;  // barcode height in 1D ; not use in 2D
+        $angle    = 0;   // rotation in degrees
+
+        $code     = '222020';     // barcode (CP852 encoding for Polish and other Central European languages)
         $type     = 'code128';
-        $black    = '000000';
-        $Y = 2;
+        $black    = '000000'; // color in hex
+        $Y = 3;
         $x = 5;
 
+        //Left Side
         $dotx= 113.8;
         $pdf->Image(base_url()."assets/img/border.png",5,3, 122,205, "PNG");
         $pdf->Image(base_url()."assets/img/dots.png",$dotx,7.5, 30,40, "PNG");
@@ -74,6 +85,20 @@ class NOC extends CI_Controller {
         $pdf->SetXY(56.2,45);
         $pdf->Cell(0, 0.2, "(NOC)", 0.25, "C");
         $pdf->Image($info['picPath'],90,33, 30,35, "jpg"); 
+        
+        /*   if( $decodedImg!==false )
+        {
+        //  Save image to a temporary location
+        if( file_put_contents(TEMPIMGLOC,$decodedImg)!==false )
+        {
+        //  Open new PDF document and print image
+
+
+        //  Delete image from server
+        unlink(TEMPIMGLOC);
+        }
+        }*/
+
 
 
         $pdf->SetFont('Arial','B',10);
@@ -94,7 +119,7 @@ class NOC extends CI_Controller {
         Barcode::rotate(-$len / 2, ($bardata['height'] / 2) + $fontSize + $marge, $angle, $xt, $yt);
 
         $pdf->SetFillColor(255,0,0);
-
+        // $pdf->SetLineWidth(.005);
         $pdf->SetAlpha(.2);
         $pdf->Image(base_url()."assets/img/icon2.png",18,80, 100,100, "PNG");
         $pdf->SetAlpha(1);
@@ -189,7 +214,7 @@ class NOC extends CI_Controller {
         }
         $pdf->SetFont('Arial','B',10);
         $pdf->SetXY($rx+30,112.8);
-        $pdf->MultiCell(100, 5,$info['Rno']."  ".$class_name."  ".$sess_name." ".$info['iyear']." ".$status_name, '', "L",0); 
+        $pdf->MultiCell(100, 5,$info['Rno']."  ".$class_name."  ".$sess_name." ".$info['iyear']." ".$status_name, '', "L",0); //158745 SSC-I Annual 2016 Pass
 
         $pdf->SetFont('Arial','',10);
         $pdf->SetXY($rx,125);
@@ -210,48 +235,51 @@ class NOC extends CI_Controller {
         $pdf->SetFont('Arial','B',10);
         $pdf->SetXY($rx+30,147.8);
         $pdf->MultiCell(100, 5,$info['Challan_No'], '', "L",0);
-        $Yaxis="150";
 
         $pdf->SetFont('Arial','',10);
-        $pdf->SetXY($rx,$Yaxis-5);
+        $pdf->SetXY($rx,155);
+        $pdf->Cell(0, 0.2, "Date:", 0.25, "C");
+
+        $pdf->SetFont('Arial','B',9);
+        $pdf->SetXY($rx+30,152.8);
+        $pdf->MultiCell(100, 5,date('d-M-Y h:i A'), '', "L",0);     //09 September, 2016
+
+        $pdf->SetFont('Arial','',10);
+        $pdf->SetXY($rx,160);
         $pdf->Cell(0, 0.2, "Amount:", 0.25, "C");
 
         $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY($rx+30,$Yaxis-7.2);
+        $pdf->SetXY($rx+30,157.8);
         $pdf->MultiCell(100, 5,"Rs. 1600/-", '', "L",0);
 
         $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(10.2,$Yaxis+30);
+        $pdf->SetXY(10.2,190);
 
         $pdf->Cell(0, 0.2, date('d-M-Y h:i A'), 0.25, "C");
         $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(10.2,$Yaxis+30);
+        $pdf->SetXY(10.2,190);
         $pdf->Cell(0, 0.2, "_______________", 0.25, "C");
         $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(20.2,$Yaxis+35);
+        $pdf->SetXY(20.2,195);
         $pdf->Cell(0, 0.2, "Dated", 0.25, "C");
 
 
         $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(48.2,$Yaxis+30);
+        $pdf->SetXY(48.2,190);
         $pdf->Cell(0, 0.2, "_______________", 0.25, "C");
-        $pdf->Image('assets/img/SignOfficial.jpg',49.2,155, 30,25, "jpg"); 
+          $pdf->Image('assets/img/SignOfficial.jpg',49.2,166, 30,25, "jpg"); 
         $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(58.2,$Yaxis+35);
+        $pdf->SetXY(58.2,195);
         $pdf->Cell(0, 0.2, "Official", 0.25, "C");
 
         $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(86.2,$Yaxis+30);
+        $pdf->SetXY(86.2,190);
         $pdf->Cell(0, 0.2, "______________", 0.25, "C");
         $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(88.2,$Yaxis+35);
+        $pdf->SetXY(88.2,195);
         $pdf->Cell(0, 0.2, "Superintendent", 0.25, "C");
-        $pdf->Image('assets/img/SignSup.jpg',89.2,180.5, 30,10, "jpg"); 
+          $pdf->Image('assets/img/SignSup.jpg',89.2,180.5, 30,10, "jpg"); 
 
-
-        $pdf->SetFont('Arial','',8);
-        $pdf->SetXY(8.9,$Yaxis+42);
-        $pdf->MultiCell(110, 2.9, "This document may be verified online at http://www.bisegrw.com/NOCONLINE verification Key ".$info['app_No'], '', "L",0);
 
         //Right Side
         $pdf->Image(base_url()."assets/img/border.png",130,3, 163,205, "PNG");
@@ -325,18 +353,21 @@ class NOC extends CI_Controller {
 
         $pdf->SetFont('Arial','B',10);
         $pdf->SetXY($rx+40,$ry+30-2.8);
-        $pdf->MultiCell(100, 5,$info['Rno']."  ".$class_name."  ".$sess_name." ".$info['iyear']." ".$status_name, '', "L",0);    
+        $pdf->MultiCell(100, 5,$info['Rno']."  ".$class_name."  ".$sess_name." ".$info['iyear']." ".$status_name, '', "L",0);     //158745 SSC-I Annual 2016 Pass
 
 
         $pdf->SetFont('Arial','',12);
         $pdf->SetXY($rx,$ry+40);
         $pdf->MultiCell(118, 5,"The Candidate is permitted to migrate from the Jurisdiction of the Board for Studies or appearance in an examination from", '', "J",0);
 
-        $pdf->SetFont('Arial','B',10);
+       
         $pdf->SetXY($rx,$ry+50);
         $pdf->MultiCell(125, 5,$info['MigTo'], '', "L",0);
 
-
+         $pdf->SetFont('Arial','',8);
+        $pdf->SetXY($rx-10,$ry+62);
+        $pdf->MultiCell(125, 5,'Note:-This document may be verified online at http://www.bisegrw.com verification Key '.$info['app_No'].'.', '', "L",0);
+       // 
 
 
         $pdf->SetFont('Arial','',12);
@@ -358,8 +389,8 @@ class NOC extends CI_Controller {
         $pdf->SetFont('Arial','',12);
         $pdf->SetXY(191.2,192);
         $pdf->Cell(0, 0.2, "_____________", 0.25, "C");
-
-        $pdf->Image('assets/img/SignOfficial.jpg',194.2,168, 30,25, "jpg"); 
+        
+          $pdf->Image('assets/img/SignOfficial.jpg',194.2,168, 30,25, "jpg"); 
 
 
         $pdf->SetFont('Arial','',12);
@@ -368,249 +399,12 @@ class NOC extends CI_Controller {
         $pdf->SetFont('Arial','',12);
         $pdf->SetXY(254.2,192);
         $pdf->Cell(0, 0.2, "_____________", 0.25, "C"); 
-        $pdf->Image('assets/img/SignSup.jpg',255.2,183, 30,10, "jpg"); 
+           $pdf->Image('assets/img/SignSup.jpg',255.2,183, 30,10, "jpg"); 
 
 
 
     }
-    private function makeNocLegal($pdf,$info)
-    {
-
-        $Session= 'ANNUAL';  
-        $info['Year'] = 2016;     
-
-
-
-        $filepath = 'assets/img/download.jpg';
-
-
-        $fontSize = 10; 
-        $marge    = .95;   
-        $bx        = 35.6; 
-        $by        = 23.75; 
-        $height   = 5.7;  
-        $width    = .26;  
-        $angle    = 0;  
-
-        $code     = '222020';    
-        $type     = 'code128';
-        $black    = '000000'; 
-        $Y = 3;
-        $x = 5;
-
-        //Left Side
-        $pdf->Image("assets/img/border.png",2,3, 155,210, "PNG");
-        $pdf->Image("assets/img/dots.png",143.8,7.5, 30,40, "PNG");
-        $pdf->Image("assets/img/dots.png",143.8,47.5, 30,40, "PNG");
-        $pdf->Image("assets/img/dots.png",143.8,87.5, 30,40, "PNG");
-        $pdf->Image("assets/img/dots.png",143.8,127.5, 30,40, "PNG");
-        $pdf->Image("assets/img/dots.png",143.8,167.5, 30,40, "PNG");
-        $pdf->SetTextColor(0 ,0,0);
-        $pdf->SetFont('Arial','U',15);
-        $pdf->SetXY(.1,18);
-        $pdf->MultiCell(160, 5,"BOARD OF INTERMEDIATE & SECONDARY EDUCATION, GUJRANWALA", '', "C",0);
-        $pdf->Image("assets/img/icon2.png",4,30, 38,40, "PNG");
-
-
-        $pdf->SetFont('Arial','B',12);
-        $pdf->SetXY(52.2,44);
-        $pdf->Cell(0, 0.2, "MIGRATION CERTIFICATE", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(72.2,54);
-        $pdf->Cell(0, 0.2, "(NOC)", 0.25, "C");
-        $pdf->Image($filepath,120,30, 28,35, "jpg");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(10.2,70);
-        $pdf->Cell(0, 0.2, "Sr.No.", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(20.2,70);
-        $pdf->Cell(0, 0.2, "__________________________", 0.25, "C");
-
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(20.2,85);
-        $pdf->Cell(0, 0.2, "Name:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(50.2,82.8);
-        $pdf->MultiCell(100, 5,"Shahid Nadeem", '', "L",0);
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(20.2,95);
-        $pdf->Cell(0, 0.2, "Father's Name:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(50.2,92.8);
-        $pdf->MultiCell(100, 5,"Mohammad Akram", '', "L",0);
-
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(20.2,105);
-        $pdf->Cell(0, 0.2, "Enrolment No:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(50.2,102.8);
-        $pdf->MultiCell(100, 5,"2-1-134526-16", '', "L",0);
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(20.2,115);
-        $pdf->Cell(0, 0.2, "Roll No:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(50.2,112.8);
-        $pdf->MultiCell(100, 5,"158745 SSC-I Annual 2016 Pass", '', "L",0);
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(20.2,125);
-        $pdf->Cell(0, 0.2, "Issued For:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(50.2,122.8);
-        $pdf->MultiCell(100, 5,"BOARD OF INTERMEDIATE & SECONDARY EDUCATION, LAHORE", '', "L",0);
-
-        $pdf->SetFont('Arial','B',11);
-        $pdf->SetXY(20.2,140);
-        $pdf->Cell(0, 0.2, "Fee Details", 0.25, "C");
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(20.2,150);
-        $pdf->Cell(0, 0.2, "Challan No:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(50.2,147.8);
-        $pdf->MultiCell(100, 5,"1254621", '', "L",0);
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(20.2,155);
-        $pdf->Cell(0, 0.2, "Date:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(50.2,152.8);
-        $pdf->MultiCell(100, 5,"09 September, 2016", '', "L",0);
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(20.2,160);
-        $pdf->Cell(0, 0.2, "Amount:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(50.2,157.8);
-        $pdf->MultiCell(100, 5,"Rs. 1600/-", '', "L",0);
-
-
-
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(8.2,193);
-        $pdf->Cell(0, 0.2, "_______________", 0.25, "C");
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(20.2,198);
-        $pdf->Cell(0, 0.2, "Dated", 0.25, "C");
-
-
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(55.2,193);
-        $pdf->Cell(0, 0.2, "_______________", 0.25, "C");
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(65.2,198);
-        $pdf->Cell(0, 0.2, "Official", 0.25, "C");
-
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(108.2,193);
-        $pdf->Cell(0, 0.2, "_______________", 0.25, "C");
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(112.2,198);
-        $pdf->Cell(0, 0.2, "Superintendent", 0.25, "C");
-
-
-
-        //Right Side
-        $pdf->Image("assets/img/border.png",160,3, 195,210, "PNG");
-        $pdf->SetTextColor(0 ,0,0);
-        $pdf->SetFont('Arial','U',15);
-        $pdf->SetXY(178.2,18);
-        $pdf->MultiCell(160, 5,"BOARD OF INTERMEDIATE & SECONDARY EDUCATION, GUJRANWALA", '', "C",0);
-        $pdf->Image("assets/img/icon2.png",164,30, 38,40, "PNG");
-        $pdf->SetFont('Arial','B',12);
-        $pdf->SetXY(230.2,44);
-        $pdf->Cell(0, 0.2, "MIGRATION CERTIFICATE", 0.25, "C");
-        $pdf->Image($filepath,300,30, 28,35, "jpg");
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(252.2,54);
-        $pdf->Cell(0, 0.2, "(NOC)", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(170.2,70);
-        $pdf->Cell(0, 0.2, "Sr.No.", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(180.2,70);
-        $pdf->Cell(0, 0.2, "__________________________", 0.25, "C");
-
-
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(190.2,85);
-        $pdf->Cell(0, 0.2, "Name of Candidate:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(240.2,82.8);
-        $pdf->MultiCell(100, 5,"Shahid Nadeem", '', "L",0);
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(190.2,95);
-        $pdf->Cell(0, 0.2, "Father's Name:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(240.2,92.8);
-        $pdf->MultiCell(100, 5,"Mohammad Akram", '', "L",0);
-
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(190.2,105);
-        $pdf->Cell(0, 0.2, "Enrolment No:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(240.2,102.8);
-        $pdf->MultiCell(100, 5,"2-1-134526-16", '', "L",0);
-
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(190.2,115);
-        $pdf->Cell(0, 0.2, "Roll No:", 0.25, "C");
-
-        $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(240.2,112.8);
-        $pdf->MultiCell(100, 5,"158745 SSC-I Annual 2016 Pass", '', "L",0);
-
-
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(168.2,198);
-        $pdf->Cell(0, 0.2, "Dated", 0.25, "C");
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(179.2,198);
-        $pdf->Cell(0, 0.2, "_______________", 0.25, "C");
-
-
-
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(222.2,198);
-        $pdf->Cell(0, 0.2, "Official", 0.25, "C");
-
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(235.2,198);
-        $pdf->Cell(0, 0.2, "_______________", 0.25, "C");
-
-
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(279.2,198);
-        $pdf->Cell(0, 0.2, "Superintendent", 0.25, "C");
-        $pdf->SetFont('Arial','',12);
-        $pdf->SetXY(308.2,198);
-        $pdf->Cell(0, 0.2, "_______________", 0.25, "C");
-
-
-    }
+   
     private function makeNocform($pdf,$info)
     {
 
@@ -708,7 +502,9 @@ class NOC extends CI_Controller {
                                 if(@$value[0][0]['Mesg'] == '')
                                 {
                                     $path = $this->Verification_model->generatepath($value[0][0]['SSC_RNo'],$value[0][0]['SSC_CLASS'],$value[0][0]['SSC_Year'],$value[0][0]['SSC_Sess']);
-                                    $path = $path[0]['picpath'];
+                                    $path = explode('$',$path[0]['picpath']);
+                                    $path = DIRPATH.$path[1];
+                                    //$path = $path[0]['picpath'];
 
                                     if(!file_exists($path))
                                     {
@@ -807,9 +603,9 @@ class NOC extends CI_Controller {
                                 else
                                 {
                                     $path = $this->Verification_model->generatepath($value[0][0]['rno'],$value[0][0]['class'],$value[0][0]['iyear'],$value[0][0]['sess']);
-                                    //$path = explode('$',$path[0]['picpath']);
-                                    //$path = DIRPATH.$path[1];
-                                    $path = $path[0]['picpath'];
+                                    $path = explode('$',$path[0]['picpath']);
+                                    $path = DIRPATH.$path[1];
+                                    //$path = $path[0]['picpath'];
                                     if(!file_exists($path))
                                     {
                                         $temp[0][0]['Mesg_server']  = 'Your Picture is missing' ;
@@ -854,14 +650,14 @@ class NOC extends CI_Controller {
     }
     public function Insert_hssc_data()
     {
-       // DebugBreak();
+        // DebugBreak();
         $rno= $_POST['rno'];
         $year= $_POST['year'];
         $sess=  $_POST['sess'];
         $matrno = $_POST['matrno'];
         $intclass = $_POST['intclass'];
         $migto = $_POST['migto'];
-        $MobNo = "03456218851";
+        $MobNo = $_POST['Mobno'];
         $this->load->model('Verification_model');
         $info = array($this->Verification_model->insert_DATA_inter($rno,$year,$sess,$matrno,$intclass,$migto,$MobNo)) ;
         echo json_encode($info);
@@ -928,9 +724,21 @@ class NOC extends CI_Controller {
         $pdf=new PDFFWithOutPage();   
         $pdf->SetAutoPageBreak(true,2);
         $pdf->AddPage('L',"A4");
-        $this->makeNoc($pdf,$info);
-        $pdf->Output('Result.pdf', 'I');  
-        return;  
+        
+        //echo '<pre>';print_r($info);
+        
+        if($info[0][0]['isverified'] == 1)
+        {
+            $this->makeNoc($pdf,$info);
+            $pdf->Output('Result.pdf', 'I');  
+            return;   
+        }
+        else
+        {
+            redirect('noc/Print_challan_Form/'.$appno);
+            return;   
+        }
+        
     }
     public function Print_challan_Form()
     {

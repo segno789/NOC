@@ -31,8 +31,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- bootstrap css -->
-    <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
-    </script>
+
     <link href="<?php echo base_url(); ?>assets/css/icomoon/style.css" rel="stylesheet">
     <!--[if lte IE 7]>
     <script src="css/icomoon-font/lte-ie7.js">
@@ -44,7 +43,7 @@
 
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/alertify.core.css">
-     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.fancybox.css">
 
 
 </head>
@@ -72,64 +71,44 @@
     </div>
 </div>
 
-<header>
+<header style="position: relative;">
     <a href="#" >
         <img src="<?php echo base_url(); ?>assets/img/BISEGRW_Icon.png" alt="logo" style="width:auto; height: 92%;     float: left;" />
     </a>
     <div class="btn-group">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" style="margin-right: 17px;    font-size: 15px;" onclick="window.open('http://www.bisegrw.com')" /><?php  echo 'Home';?></button>
+         <button class="btn btn-primary" style="margin-right: 17px;    font-size: 15px;" onclick="window.open('<?= base_url()?>Traceapplication')" /><?php  echo 'Track Your Application';?></button>
+  
+        <button class="btn btn-primary btntoggleapp" style="font-size: 15px;">
             <?php
-
-            echo $Inst_Id.'-'.$inst_Name;  
+            echo 'Modules';
             ?>
         </button>
-        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+        <button data-toggle="dropdown" class="btn btn-primary btntoggleapp dropdown-toggle" style="height: 30px;">
             <span class="caret">
             </span>
         </button>
         <ul class="dropdown-menu pull-right">
-            <!--  <li>
-            <a href="#">
-            Edit Profile
-            </a>
-            </li> -->
+          
+            <?php 
+            // DebugBreak();
+            for($i =0 ; $i<count($info); $i++) 
+            {?>
+            <li>
+                <a href="<?= $info[$i]['url']?>">
+                    <?= $info[$i]['LinkName']?>
+                </a>
+            </li> 
+            <?php }?>
             <!-- <li>
             <a href="Profile/Profile.php">
             Account Settings
             </a>
             </li>-->
-            <li>
-                <a onclick="return logout();">
-                    Logout
-                </a>
-            </li>
+            
         </ul>
+
     </div>
-    <!--  <ul class="mini-nav">
-    <li>
-    <a href="#">
-    <div class="fs1" aria-hidden="true" data-icon="&#xe040;"></div>
-    <span class="info-label badge badge-warning">
-    3
-    </span>
-    </a>
-    </li>
-    <li>
-    <a href="#">
-    <div class="fs1" aria-hidden="true" data-icon="&#xe04c;"></div>
-    <span class="info-label badge badge-info">
-    5
-    </span>
-    </a>
-    </li>
-    <li>
-    <a href="#">
-    <div class="fs1" aria-hidden="true" data-icon="&#xe037;"></div>
-    <span class="info-label badge badge-success">
-    9
-    </span>
-    </a>
-    </li>
-    </ul>   -->
+
 
 </header>

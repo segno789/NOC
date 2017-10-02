@@ -1,6 +1,6 @@
 
 <h1 align="center"> Download Your Admission Form</h1>
-<form enctype="multipart/form-data" id="ReturnStatus" name="ReturnStatus" method="post" action="<?php echo base_url(); ?>index.php/NOC/Print_challan_Form/<?php echo $app_No; ?>" >
+<form enctype="multipart/form-data" id="ReturnStatus" name="ReturnStatus" method="post" action="<?php echo base_url(); ?>NOC/Print_challan_Form/<?php echo $app_No; ?>" >
     <div class="form-group">
         <div class="row">
             <h2 align="center">Your Form No.<?php echo @$app_No; ?> </h2>
@@ -25,7 +25,7 @@
         alertify.confirm(msg, function (e) {
             if (e) {
                 // user clicked "ok"
-                window.location.href ='<?php echo base_url(); ?>index.php/noc';
+                window.location.href ='<?php echo base_url(); ?>noc';
             } else {
                 // user clicked "cancel"
             }

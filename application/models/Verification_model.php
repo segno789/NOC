@@ -19,7 +19,7 @@ class Verification_model extends CI_Model
         {
             $class =9;
         }
-        $query = $this->db->query("Registration..NOC_GET_STD_MATRIC_temp $rno,$sess,$year,'$dob',$class");
+        $query = $this->db->query("Registration..NOC_GET_STD_MATRIC $rno,$sess,$year,'$dob',$class");
         $rowcount = $query->num_rows();
         if($rowcount > 0)
         {
@@ -54,7 +54,7 @@ class Verification_model extends CI_Model
         //DebugBreak();
 
         $matched = 0;
-        $query = $this->db->query("Registration..NOC_GET_Inter_STD_MAINFO_TEMP $rno,$intclass,$year,$sess");
+        $query = $this->db->query("Registration..NOC_GET_Inter_STD_MAINFO $rno,$intclass,$year,$sess");
         $rowcount = $query->num_rows();
         if($rowcount > 0)
         {

@@ -42,10 +42,8 @@ define('CURRENT_SESS', 'Online Result Card 9th Annual 2016');
 define('CURRENT_SESS_YEAR', 'Result HSSC (Part-II) Supply 2016');
 define('SESS', '2');
 define('MCLASS', '12');
- define('BARCODE_PATH', 'uploads/pdfs/');
 
-define('CORRECTION_TITLE', 'Online Correction System');
-define('Year', '2017');
+
 define('VERIFICATION_TITLE', 'Online NOC System');
 define('NOC_APP_NO', '400000');
 define('NOC_APP_NO1', '100000');
