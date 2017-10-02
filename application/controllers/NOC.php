@@ -83,6 +83,11 @@ class NOC extends CI_Controller {
         $pdf->SetFont('Arial','B',10);
         $pdf->SetXY(56.2,45);
         $pdf->Cell(0, 0.2, "(NOC)", 0.25, "C");
+        
+        $pdf->SetFont('Arial','BU',10);
+        $pdf->SetXY(48.2,55);
+        $pdf->Cell(0, 0.2, "CANDIDATE COPY", 0.25, "C");
+        
         $pdf->Image($info['picPath'],90,33, 30,35, "jpg"); 
 
         /*   if( $decodedImg!==false )
@@ -101,11 +106,11 @@ class NOC extends CI_Controller {
 
 
         $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(10.2,70);
+        $pdf->SetXY(14.2,70);
         $pdf->Cell(0, 0.2, "App.No.", 0.25, "C");
 
         $pdf->SetFont('Arial','BU',10);
-        $pdf->SetXY(25.2,70);
+        $pdf->SetXY(28.2,70);
         $pdf->Cell(0, 0.2, $info['app_No'], 0.25, "C");
 
         //barcode
@@ -266,7 +271,7 @@ class NOC extends CI_Controller {
         $pdf->SetFont('Arial','',12);
         $pdf->SetXY(48.2,190);
         $pdf->Cell(0, 0.2, "_______________", 0.25, "C");
-        $pdf->Image('assets/img/SignOfficial.jpg',49.2,166, 30,25, "jpg"); 
+        $pdf->Image('assets/img/SignOfficial.jpg',55.2,175, 15,15, "jpg"); 
         $pdf->SetFont('Arial','',12);
         $pdf->SetXY(58.2,195);
         $pdf->Cell(0, 0.2, "Official", 0.25, "C");
@@ -296,14 +301,16 @@ class NOC extends CI_Controller {
         $pdf->SetFont('Arial','B',10);
         $pdf->SetXY(205.2,44);
         $pdf->Cell(0, 0.2, "(NOC)", 0.25, "C");
+        
+        
 
 
         $pdf->SetFont('Arial','B',10);
-        $pdf->SetXY(140.2,70);
+        $pdf->SetXY(150.2,70);
         $pdf->Cell(0, 0.2, "App.No.", 0.25, "C");
 
         $pdf->SetFont('Arial','BU',10);
-        $pdf->SetXY(155.2,70);
+        $pdf->SetXY(164.2,70);
         $pdf->Cell(0, 0.2, $info['app_No'], 0.25, "C");
 
         $bx        = 240.6;  // barcode center
@@ -364,11 +371,13 @@ class NOC extends CI_Controller {
         $pdf->MultiCell(125, 5,$info['MigTo'], '', "L",0);
 
         $pdf->SetFont('Arial','',8);
-        $pdf->SetXY($rx-10,$ry+62);
-        $pdf->MultiCell(125, 5,'Note:-This document may be verified online at http://www.bisegrw.com verification Key '.$info['app_No'].'.', '', "L",0);
-        // 
-
-
+        $pdf->SetXY($rx-10,$ry+65);
+        $pdf->Cell(0, 0.2, 'THIS DOCUMENT MAY BE VERIFIED ONLINE AT ', 0.25, "C");
+        $pdf->SetFont('Arial','ub',8);
+        $pdf->SetXY($rx+55,$ry+65);
+        $pdf->Cell(0, 0.2, 'www.bisegrw.com ', 0.25, "C");
+        //$pdf->MultiCell(125, 5,'Note:-This document may be verified online at http://www.bisegrw.com ', '', "L",0);
+        
         $pdf->SetFont('Arial','',12);
         $pdf->SetXY(136.2,192);
         $pdf->Cell(0, 0.2, "Dated", 0.25, "C");
@@ -389,7 +398,7 @@ class NOC extends CI_Controller {
         $pdf->SetXY(191.2,192);
         $pdf->Cell(0, 0.2, "_____________", 0.25, "C");
 
-        $pdf->Image('assets/img/SignOfficial.jpg',194.2,168, 30,25, "jpg"); 
+        $pdf->Image('assets/img/SignOfficial.jpg',198.2,178, 15,15, "jpg"); 
 
 
         $pdf->SetFont('Arial','',12);
