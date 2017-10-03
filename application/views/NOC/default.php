@@ -43,7 +43,7 @@
     <?php 
     $colorClass = "";
     $Msg = "";
-
+      DebugBreak();
     if($info['IsActive']==0)
     {
         $colorClass ="class='alert alert-danger fade in alert-dismissable'";
@@ -54,7 +54,12 @@
         $colorClass ="class='alert alert-success fade in alert-dismissable'";
         $Msg = "Application Completed";
     }
-    else if($info['ismigrated']==0 && $info['isverified']==0 )
+    else if($info['ismigrated']==0 && $info['remarks']!="")
+    {
+        $colorClass ="class='alert alert-danger fade in alert-dismissable'";
+        $Msg = "Application can not proceed due to ".$info['remarks'];
+    }
+    else if($info['ismigrated']==0 && $info['isverified']==0)
     {
         $colorClass ="class='alert alert-warning fade in alert-dismissable'";
         $Msg = "Application Under Process (Fee not verified!)";
@@ -64,11 +69,11 @@
         $colorClass ="class='alert alert-info fade in alert-dismissable'";
         $Msg = "Application Under Process (Fee verified!)";
     }
-    else if($info['ismigrated']==0 && $info['isverified']==1 && $info['remarks']!="")
+    /*else if($info['ismigrated']==0 && $info['isverified']==1 && $info['remarks']!="")
     {
         $colorClass ="class='alert alert-danger fade in alert-dismissable'";
         $Msg = "Application can not proceed due to ".$info['remarks'];
-    }
+    } */
 
     if(isset($info['app_No']))
     {
