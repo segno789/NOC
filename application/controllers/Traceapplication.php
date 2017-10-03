@@ -7,7 +7,7 @@ class Traceapplication extends CI_Controller {
     {
         parent::__construct();
         $this->load->helper('url');
-        define('HEADER_TITLE', 'Track Your Application Status (File Tracking)');
+        define('HEADER_TITLE', 'Trace Your Application Status');
     }
     public function index()
     {

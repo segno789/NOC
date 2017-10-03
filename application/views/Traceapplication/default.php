@@ -1,18 +1,20 @@
 
-<?php
-@$info = $info[0];
-if(@$err['Error'])
-{
-    ?>
-    <div class="alert alert-danger fade in alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-        <strong><?php echo $err['Error'] ?></strong>
-    </div>
-    <?php
-}
-?>
+
 
 <form enctype="multipart/form-data" method="post" action="<?php echo base_url(); ?>Traceapplication/TraceFile">
+
+    <?php
+    @$info = $info[0];
+    if(@$err['Error'])
+    {
+        ?>
+        <div class="alert alert-danger fade in alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+            <strong><?php echo $err['Error'] ?></strong>
+        </div>
+        <?php
+    }
+    ?>
 
     <div class="form-group">    
         <div class="row">
@@ -25,7 +27,7 @@ if(@$err['Error'])
     <div class="form-group">    
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
-                <div class="alert alert-info fade in alert-dismissable">
+                <div class="alert alert-info fade in alert-link">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close"></a>
                     <strong>View your application status</strong>
                 </div>
@@ -39,7 +41,7 @@ if(@$err['Error'])
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
                 <label class="control-label" for="tsscrno" >Application No</label>
-                <input type="text" id="fileId" maxlength="10" value="<?php echo @$info['File_NO'] ?>" name="fileId" class="form-control" >
+                <input type="text" id="fileId" maxlength="10" value="<?php echo @$info['fileid'] ?>" name="fileId" class="form-control" >
             </div>
         </div>
     </div>
@@ -119,7 +121,7 @@ if(@$err['Error'])
             <div class="form-group">
                 <div class="col-md-offset-3 col-md-3">
                     <label  class="control-label">File ID</label>
-                    <input type="text" class="form-control" value="<?php echo $info['File_NO'];  ?>" readonly="readonly">    
+                    <input type="text" class="form-control" value="<?php echo $info['fileid'];  ?>" readonly="readonly">    
                 </div>
 
                 <div class="col-md-3">
