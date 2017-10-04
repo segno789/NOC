@@ -177,6 +177,18 @@
     } 
     //------------------------end, file upload review-------------------------------
 
+    $("#fileId").keypress(function (e) {
+        var fileId = $("#fileId").val();    
+        if(fileId.length >= 10 && (e.which != 13)) {
+            alertify.error('You cannot enter more than 10 digits');
+            return false;
+        }
+        else if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && (e.which != 13)) {
+            alertify.error('Please Use Numaric keys Only');
+            return false;
+        }
+    });
+
     // --------- validation of Info -------------------
     function check_validate()
     {
@@ -345,8 +357,8 @@
             alertify.log("Please Wait for a while...")   
             return true;
         }
-        
-           
+
+
     }
     function check_downloand_NOC()
     {

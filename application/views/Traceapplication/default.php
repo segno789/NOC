@@ -1,7 +1,7 @@
 
 
 
-<form enctype="multipart/form-data" method="post" action="<?php echo base_url(); ?>Traceapplication/TraceFile">
+<form enctype="multipart/form-data" method="post" action="<?php echo base_url(); ?>index.php/Traceapplication/TraceFile">
 
     <?php
     @$info = $info[0];
@@ -49,7 +49,7 @@
     <div class="form-group">    
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
-                <input type="submit" value="Check Status" id="btnchk" name="btnchk" class="btn btn-primary btn-block">
+                <input type="submit" value="Check Status" id="btnchk" name="btnchk" class="btn btn-primary btn-block" onclick="return filedId(this)">
             </div>
         </div>
     </div>
@@ -164,7 +164,22 @@
 </form>
 
 
+<script type="text/javascript">
 
+ 
+
+    function filedId(){
+        var x = $('#fileId').val();
+        if(x == ''){
+            alertify.error('Frist Enter Application id');
+            $('#fileId').focus();
+            return false;
+        }
+    }
+
+
+
+</script>
 
 
 
