@@ -1,5 +1,5 @@
 
-<hr class="colorgraph">
+
 
 <div id="footer" class="footer">
     &nbsp; &copy; 2017 BISE Gujranwala, All Rights Reserved. 
@@ -17,6 +17,20 @@
 
 
 <script type="text/javascript">
+
+    $("#btnTracePrint").click(function () {
+
+        $("#showDiv1").show();
+        $("#hideDiv1").hide();
+        $("#hideBtnPrint").hide();
+        
+        window.print();
+
+        $("#hideDiv1").show();
+        $("#hideBtnPrint").show();
+        
+    });
+
     jQuery.fn.ForceNumericOnly =
     function()
     {
@@ -41,6 +55,7 @@
     $(document).ready(function () {
         $('.mPageloader').hide();
         $('#instruction').hide();
+              
         $body = $("body");
         $("#MobNo").mask("9999-9999999",{placeholder:"_"});
         $("#MobNoHssc").mask("9999-9999999",{placeholder:"_"});
