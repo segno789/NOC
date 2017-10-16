@@ -1,8 +1,5 @@
 
-
-
 <form enctype="multipart/form-data" method="post" action="<?php echo base_url(); ?>index.php/Traceapplication/TraceFile">
-
     <?php
     @$info = $info[0];
     if(@$err['Error'])
@@ -15,7 +12,6 @@
         <?php
     }
     ?>
-
     <div id="hideDiv1">
         <div class="form-group">    
             <div class="row">
@@ -24,7 +20,6 @@
                 </div>
             </div>
         </div>
-
         <div class="form-group">    
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
@@ -35,18 +30,14 @@
                 </div>
             </div>
         </div>
-
-
-
         <div class="form-group">    
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-                    <label class="control-label" for="tsscrno" >Application No</label>
+                    <label class="control-label" for="tsscrno" >File No/One-Window No</label>
                     <input type="text" id="fileId" maxlength="10" value="<?php echo @$info['fileid'] ?>" name="fileId" class="form-control" >
                 </div>
             </div>
         </div>
-
         <div class="form-group">    
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
@@ -55,7 +46,6 @@
             </div>
         </div>
     </div>
-
     <div id="showDiv1">
         <?php
         $colorClass = "";
@@ -87,7 +77,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">    
                 <div class="row">
                     <div class="col-md-offset-3 col-md-6">
@@ -100,64 +89,50 @@
                     </div>
                 </div>
             </div>
-
             <fieldset>
-
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-6">
                         <label  class="control-label">Applicant Name</label>
                         <input type="text" class="form-control" value="<?php echo $info['SubmittedBy'];  ?>" readonly="readonly">    
                     </div>
                 </div>
-
-
                 <div class="form-group">
-                    <div class="col-md-offset-3 col-md-3">
-                        <label  class="control-label">File ID</label>
+                    <div class="col-md-offset-3 col-md-6">
+                        <label  class="control-label">File No/One Window No</label>
                         <input type="text" class="form-control" value="<?php echo $info['fileid'];  ?>" readonly="readonly">    
                     </div>
-
-                    <div class="col-md-3">
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-6">
                         <label class="control-label">File Name</label>
                         <input type="text" class="form-control" value="<?php echo $info['FileName'];  ?>" readonly="readonly">    
                     </div>
                 </div>
-
-
                 <div class="form-group">
-                    <div class="col-md-offset-3 col-md-3">
-                        <label  class="control-label">Received By</label>
-                        <input type="text" class="form-control" value="<?php echo $info['ReceivedBy'];  ?>" readonly="readonly">    
-                    </div>
-
-                    <div class="col-md-3">
+                    <div class="col-md-offset-3 col-md-6">
                         <label class="control-label">Received Date</label>
                         <input type="text" class="form-control" value="<?php echo date($info['recivedDate']);  ?>" readonly="readonly">    
                     </div>
                 </div>
-
-
                 <div class="form-group">
-                    <div class="col-md-offset-3 col-md-3">
+                    <div class="col-md-offset-3 col-md-6">
                         <label  class="control-label">Current Branch Name</label>
                         <input type="text" class="form-control" value="<?php echo $info['br_Name'];  ?>" readonly="readonly">    
                     </div>
-
-                    <div class="col-md-3">
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-6">
                         <label class="control-label">Remarks</label>
                         <input type="text" class="form-control" value="<?php echo $info['Remarks'];  ?>" readonly="readonly">    
                     </div>
                 </div>
-
             </fieldset> 
-
             <?php
         } 
         ?>
     </div>
     <?php
     if(isset($info)){
-
         ?>
         <div id="hideBtnPrint"> 
             <div class="form-group">
@@ -171,10 +146,7 @@
     }
     ?>
 </form>
-
-
 <script type="text/javascript">
-
     function filedId(){
         var x = $('#fileId').val();
         if(x == ''){
@@ -183,9 +155,6 @@
             return false;
         }
     }
-
-
-
 </script>
 
 
