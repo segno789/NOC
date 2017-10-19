@@ -33,12 +33,36 @@
         <div class="form-group">    
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-                    <label class="control-label" for="tsscrno" >File No/One-Window No</label>
-                    <input type="text" id="fileId" maxlength="10" value="<?php echo @$info['fileid'] ?>" name="fileId" class="form-control" >
+                    <label class="control-label" for="traceType">Select Tracing Type</label>
+                    <select class="form-control" id="traceType" name="traceType">
+                        <option value="0" <?php if(@$_POST['traceType'] == 0) echo 'selected' ?> >Select Your Tracing Type</option>
+                        <option value="1" <?php if(@$_POST['traceType'] == 1) echo 'selected' ?> >By File Id</option>
+                        <option value="2" <?php if(@$_POST['traceType'] == 2) echo 'selected' ?> >By One Window No</option>
+                    </select>
                 </div>
             </div>
         </div>
-        <div class="form-group">    
+        <div class="form-group" id="criteria1">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <label class="control-label" for="fileId">File No</label>
+                    <input type="text" id="fileId" maxlength="10" value="<?php echo @$info['fileid']; ?>" name="fileId" class="form-control" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group" id="criteria2">    
+            <div class="row">
+                <div class="col-md-offset-3 col-md-3">
+                    <label class="control-label" for="owoNo">One Window No</label>
+                    <input type="text" id="owoNo" maxlength="10" name="owoNo" value="<?php echo @$_POST['owoNo']; ?>" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="owoNo">One Window Date</label>
+                    <input type="text" id="owoDate" name="owoDate" class="form-control"  value="<?php echo @$_POST['owoDate']; ?>" readonly="readonly">
+                </div>
+            </div>
+        </div>
+        <div class="form-group" id="buttonTrace">    
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
                     <input type="submit" value="Check Status" id="btnchk" name="btnchk" class="btn btn-primary btn-block" onclick="return filedId(this)">
@@ -96,12 +120,34 @@
                         <input type="text" class="form-control" value="<?php echo $info['SubmittedBy'];  ?>" readonly="readonly">    
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-3 col-md-6">
-                        <label  class="control-label">File No/One Window No</label>
-                        <input type="text" class="form-control" value="<?php echo $info['fileid'];  ?>" readonly="readonly">    
+                <?php
+                if(@$_POST['owoNo'] != '')
+                { ?>
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-3">
+                            <label  class="control-label">One Window No</label>
+                            <input type="text" class="form-control" value="<?php echo @$info['OWO-No'];  ?>" readonly="readonly">    
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label  class="control-label">File Id</label>
+                            <input type="text" class="form-control" value="<?php echo @$info['fileid'];  ?>" readonly="readonly">    
+                        </div>
+                    </div>
+                    <?php
+                }
+                else{
+                    ?>
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-6">
+                            <label  class="control-label">File Id</label>
+                            <input type="text" class="form-control" value="<?php echo @$_POST['fileId'];  ?>" readonly="readonly">    
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-6">
                         <label class="control-label">File Name</label>
@@ -148,10 +194,26 @@
 </form>
 <script type="text/javascript">
     function filedId(){
-        var x = $('#fileId').val();
-        if(x == ''){
+
+        var traceType =  $("#traceType").val();
+        var owoNo =  $("#owoNo").val();
+        var owoDate =  $("#owoDate").val();
+        var fileId = $('#fileId').val();
+
+        if(traceType == 1 && fileId == ''){
             alertify.error('Frist Enter Application id');
             $('#fileId').focus();
+            return false;
+        }
+        else if(traceType == 2 && owoNo == ''){
+            alertify.error('Frist Enter One Window No');
+            $('#owoNo').focus();
+            return false;
+        }
+
+        else if(traceType == 2 && owoDate == ''){
+            alertify.error('Frist Enter One Window Date');
+            $('#owoDate').focus();
             return false;
         }
     }

@@ -34,24 +34,25 @@ class Traceapplication extends CI_Controller {
 
     public function TraceFile()
     {    
-        //DebugBreak();
-
-        @$fileId = $_POST['fileId'];
-
+        @$traceType = $_POST['traceType'];
+        if($traceType == 1){
+            @$fileId = $_POST['fileId'];    
+        }
+        else if($traceType == 2){
+            @$fileId = $_POST['owoNo'];    
+            @$owoDate = $_POST['owoDate'];    
+        }
         $this->load->model('TraceApplicationModel');
-        $val = $this->TraceApplicationModel->FileTrackModel($fileId);
-
+        @$val = $this->TraceApplicationModel->FileTrackModel($fileId, $traceType, $owoDate);
         if($val == -1){
             $err = array(
                 'Error' => 'NO RECORD FOUND'
             );
-
             $this->load->view('common/commonheader_Verification.php');
             $this->load->view('Traceapplication/default.php', array('err'=>$err));
             $this->load->view('common/verfooter.php');
             return;
         }
-
         if($val){
             $this->load->view('common/commonheader_Verification.php');
             $this->load->view('Traceapplication/default.php', array('info'=>$val));

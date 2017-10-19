@@ -18,17 +18,59 @@
 
 <script type="text/javascript">
 
+    $("#traceType").change(function(){
+
+        var traceType =  $("#traceType").val();
+
+        if(traceType == 0){
+            $('#buttonTrace').hide();
+            $('#criteria1').hide();
+            $('#criteria2').hide();
+            $("#owoNo").empty();
+            $("#owoDate").empty();
+            $("#fileId").empty();
+            $("#showDiv1").hide();
+            $("#hideBtnPrint").hide();
+        }
+
+        if(traceType == 1){
+            $("#criteria2").hide();
+            $("#owoNo").empty();
+            $("#owoDate").empty();
+            $("#criteria1").show();
+            $("#buttonTrace").show();
+            $("#showDiv1").hide();
+            $("#hideBtnPrint").hide();
+        }
+        else if (traceType == 2){
+            $("#criteria1").hide();
+            $("#fileId").empty();
+            $("#criteria2").show();
+            $("#buttonTrace").show();
+            $("#showDiv1").hide();
+            $("#hideBtnPrint").hide();
+        }
+    });
+
+    $( "#owoDate" ).datepicker(
+        {
+            dateFormat: 'yy-mm-dd'
+            ,changeMonth: true,changeYear:true
+            , yearRange: '-1:'
+            ,maxDate: new Date()
+    }).val();
+
     $("#btnTracePrint").click(function () {
 
         $("#showDiv1").show();
         $("#hideDiv1").hide();
         $("#hideBtnPrint").hide();
-        
+
         window.print();
 
         $("#hideDiv1").show();
         $("#hideBtnPrint").show();
-        
+
     });
 
     jQuery.fn.ForceNumericOnly =
@@ -53,9 +95,16 @@
         });
     };
     $(document).ready(function () {
+
+
+
         $('.mPageloader').hide();
         $('#instruction').hide();
-              
+
+        $('#buttonTrace').hide();
+        $('#criteria1').hide();
+        $('#criteria2').hide();
+
         $body = $("body");
         $("#MobNo").mask("9999-9999999",{placeholder:"_"});
         $("#MobNoHssc").mask("9999-9999999",{placeholder:"_"});
