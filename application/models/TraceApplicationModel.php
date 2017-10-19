@@ -8,7 +8,7 @@ class TraceApplicationModel extends CI_Model
 
     public function FileTrackModel($fileId,$traceType, $owoDate)
     {
-        $query = $this->db->query("Exec MiscDb..File_Trace_Testing '$fileId', $traceType, '$owoDate'");
+        $query = $this->db->query("Exec MiscDb..File_Trace '$fileId', $traceType, '$owoDate'");
         $rowcount = $query->num_rows();
         if($rowcount > 0)
         {
